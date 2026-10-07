@@ -10,33 +10,157 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedCIndexRouteImport } from './routes/_authenticated/c.index'
+import { Route as AuthenticatedCPostRouteImport } from './routes/_authenticated/c.post'
+import { Route as AuthenticatedCProblemsRouteImport } from './routes/_authenticated/c.problems'
+import { Route as AuthenticatedEIndexRouteImport } from './routes/_authenticated/e.index'
+import { Route as ApiPublicRazorpayWebhookRouteImport } from './routes/api/public/razorpay-webhook'
+import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api/public/stripe-webhook'
+import { Route as AuthenticatedCProblemIdRouteImport } from './routes/_authenticated/c.problem.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCIndexRoute = AuthenticatedCIndexRouteImport.update({
+  id: '/c/',
+  path: '/c/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCPostRoute = AuthenticatedCPostRouteImport.update({
+  id: '/c/post',
+  path: '/c/post',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCProblemsRoute = AuthenticatedCProblemsRouteImport.update({
+  id: '/c/problems',
+  path: '/c/problems',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedEIndexRoute = AuthenticatedEIndexRouteImport.update({
+  id: '/e/',
+  path: '/e/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const ApiPublicRazorpayWebhookRoute =
+  ApiPublicRazorpayWebhookRouteImport.update({
+    id: '/api/public/razorpay-webhook',
+    path: '/api/public/razorpay-webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicStripeWebhookRoute = ApiPublicStripeWebhookRouteImport.update({
+  id: '/api/public/stripe-webhook',
+  path: '/api/public/stripe-webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedCProblemIdRoute = AuthenticatedCProblemIdRouteImport.update({
+  id: '/c/problem/$id',
+  path: '/c/problem/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/c/post': typeof AuthenticatedCPostRoute
+  '/c/problems': typeof AuthenticatedCProblemsRoute
+  '/api/public/razorpay-webhook': typeof ApiPublicRazorpayWebhookRoute
+  '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/c/': typeof AuthenticatedCIndexRoute
+  '/e/': typeof AuthenticatedEIndexRoute
+  '/c/problem/$id': typeof AuthenticatedCProblemIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/c/post': typeof AuthenticatedCPostRoute
+  '/c/problems': typeof AuthenticatedCProblemsRoute
+  '/api/public/razorpay-webhook': typeof ApiPublicRazorpayWebhookRoute
+  '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
+  '/c': typeof AuthenticatedCIndexRoute
+  '/e': typeof AuthenticatedEIndexRoute
+  '/c/problem/$id': typeof AuthenticatedCProblemIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/_authenticated/c/post': typeof AuthenticatedCPostRoute
+  '/_authenticated/c/problems': typeof AuthenticatedCProblemsRoute
+  '/api/public/razorpay-webhook': typeof ApiPublicRazorpayWebhookRoute
+  '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/c/': typeof AuthenticatedCIndexRoute
+  '/_authenticated/e/': typeof AuthenticatedEIndexRoute
+  '/_authenticated/c/problem/$id': typeof AuthenticatedCProblemIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/c/post'
+    | '/c/problems'
+    | '/api/public/razorpay-webhook'
+    | '/api/public/stripe-webhook'
+    | '/admin/'
+    | '/c/'
+    | '/e/'
+    | '/c/problem/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/c/post'
+    | '/c/problems'
+    | '/api/public/razorpay-webhook'
+    | '/api/public/stripe-webhook'
+    | '/admin'
+    | '/c'
+    | '/e'
+    | '/c/problem/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/_authenticated/c/post'
+    | '/_authenticated/c/problems'
+    | '/api/public/razorpay-webhook'
+    | '/api/public/stripe-webhook'
+    | '/_authenticated/admin/'
+    | '/_authenticated/c/'
+    | '/_authenticated/e/'
+    | '/_authenticated/c/problem/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  ApiPublicRazorpayWebhookRoute: typeof ApiPublicRazorpayWebhookRoute
+  ApiPublicStripeWebhookRoute: typeof ApiPublicStripeWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +172,106 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/c/': {
+      id: '/_authenticated/c/'
+      path: '/c'
+      fullPath: '/c/'
+      preLoaderRoute: typeof AuthenticatedCIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/c/post': {
+      id: '/_authenticated/c/post'
+      path: '/c/post'
+      fullPath: '/c/post'
+      preLoaderRoute: typeof AuthenticatedCPostRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/c/problems': {
+      id: '/_authenticated/c/problems'
+      path: '/c/problems'
+      fullPath: '/c/problems'
+      preLoaderRoute: typeof AuthenticatedCProblemsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/e/': {
+      id: '/_authenticated/e/'
+      path: '/e'
+      fullPath: '/e/'
+      preLoaderRoute: typeof AuthenticatedEIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/public/razorpay-webhook': {
+      id: '/api/public/razorpay-webhook'
+      path: '/api/public/razorpay-webhook'
+      fullPath: '/api/public/razorpay-webhook'
+      preLoaderRoute: typeof ApiPublicRazorpayWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/stripe-webhook': {
+      id: '/api/public/stripe-webhook'
+      path: '/api/public/stripe-webhook'
+      fullPath: '/api/public/stripe-webhook'
+      preLoaderRoute: typeof ApiPublicStripeWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/c/problem/$id': {
+      id: '/_authenticated/c/problem/$id'
+      path: '/c/problem/$id'
+      fullPath: '/c/problem/$id'
+      preLoaderRoute: typeof AuthenticatedCProblemIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedCPostRoute: typeof AuthenticatedCPostRoute
+  AuthenticatedCProblemsRoute: typeof AuthenticatedCProblemsRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+  AuthenticatedCIndexRoute: typeof AuthenticatedCIndexRoute
+  AuthenticatedEIndexRoute: typeof AuthenticatedEIndexRoute
+  AuthenticatedCProblemIdRoute: typeof AuthenticatedCProblemIdRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedCPostRoute: AuthenticatedCPostRoute,
+  AuthenticatedCProblemsRoute: AuthenticatedCProblemsRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+  AuthenticatedCIndexRoute: AuthenticatedCIndexRoute,
+  AuthenticatedEIndexRoute: AuthenticatedEIndexRoute,
+  AuthenticatedCProblemIdRoute: AuthenticatedCProblemIdRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
+  ApiPublicRazorpayWebhookRoute: ApiPublicRazorpayWebhookRoute,
+  ApiPublicStripeWebhookRoute: ApiPublicStripeWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
