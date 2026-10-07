@@ -52,7 +52,7 @@ function Onboarding() {
         className="mt-5 space-y-4"
         onSubmit={async (e) => {
           e.preventDefault();
-          if (!aadhaar || !photo || !skills.length) return toast.error("Add Aadhaar, photo and at least one skill");
+          if (!aadhaar || !photo || !skills.length) { toast.error("Add Aadhaar, photo and at least one skill"); return; }
           setBusy(true);
           try {
             const { data: u } = await supabase.auth.getUser();
