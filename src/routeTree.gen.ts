@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedCIndexRouteImport } from './routes/_authenticated/c.index'
 import { Route as AuthenticatedCPostRouteImport } from './routes/_authenticated/c.post'
@@ -20,6 +21,7 @@ import { Route as AuthenticatedChatJobIdRouteImport } from './routes/_authentica
 import { Route as AuthenticatedEIndexRouteImport } from './routes/_authenticated/e.index'
 import { Route as AuthenticatedEJobsRouteImport } from './routes/_authenticated/e.jobs'
 import { Route as AuthenticatedEOnboardingRouteImport } from './routes/_authenticated/e.onboarding'
+import { Route as AuthenticatedProblemsIdRouteImport } from './routes/_authenticated/problems.$id'
 import { Route as AuthenticatedEQuoteIdRouteImport } from './routes/_authenticated/e.quote.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +37,11 @@ const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/admin/',
@@ -77,6 +84,11 @@ const AuthenticatedEOnboardingRoute =
     path: '/e/onboarding',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedProblemsIdRoute = AuthenticatedProblemsIdRouteImport.update({
+  id: '/problems/$id',
+  path: '/problems/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedEQuoteIdRoute = AuthenticatedEQuoteIdRouteImport.update({
   id: '/e/quote/$id',
   path: '/e/quote/$id',
@@ -86,11 +98,13 @@ const AuthenticatedEQuoteIdRoute = AuthenticatedEQuoteIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/c/post': typeof AuthenticatedCPostRoute
   '/c/problems': typeof AuthenticatedCProblemsRoute
   '/chat/$jobId': typeof AuthenticatedChatJobIdRoute
   '/e/jobs': typeof AuthenticatedEJobsRoute
   '/e/onboarding': typeof AuthenticatedEOnboardingRoute
+  '/problems/$id': typeof AuthenticatedProblemsIdRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/c/': typeof AuthenticatedCIndexRoute
   '/e/': typeof AuthenticatedEIndexRoute
@@ -99,11 +113,13 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
   '/c/post': typeof AuthenticatedCPostRoute
   '/c/problems': typeof AuthenticatedCProblemsRoute
   '/chat/$jobId': typeof AuthenticatedChatJobIdRoute
   '/e/jobs': typeof AuthenticatedEJobsRoute
   '/e/onboarding': typeof AuthenticatedEOnboardingRoute
+  '/problems/$id': typeof AuthenticatedProblemsIdRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/c': typeof AuthenticatedCIndexRoute
   '/e': typeof AuthenticatedEIndexRoute
@@ -114,11 +130,13 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/c/post': typeof AuthenticatedCPostRoute
   '/_authenticated/c/problems': typeof AuthenticatedCProblemsRoute
   '/_authenticated/chat/$jobId': typeof AuthenticatedChatJobIdRoute
   '/_authenticated/e/jobs': typeof AuthenticatedEJobsRoute
   '/_authenticated/e/onboarding': typeof AuthenticatedEOnboardingRoute
+  '/_authenticated/problems/$id': typeof AuthenticatedProblemsIdRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/c/': typeof AuthenticatedCIndexRoute
   '/_authenticated/e/': typeof AuthenticatedEIndexRoute
@@ -129,11 +147,13 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/dashboard'
     | '/c/post'
     | '/c/problems'
     | '/chat/$jobId'
     | '/e/jobs'
     | '/e/onboarding'
+    | '/problems/$id'
     | '/admin/'
     | '/c/'
     | '/e/'
@@ -142,11 +162,13 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/dashboard'
     | '/c/post'
     | '/c/problems'
     | '/chat/$jobId'
     | '/e/jobs'
     | '/e/onboarding'
+    | '/problems/$id'
     | '/admin'
     | '/c'
     | '/e'
@@ -156,11 +178,13 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/_authenticated/dashboard'
     | '/_authenticated/c/post'
     | '/_authenticated/c/problems'
     | '/_authenticated/chat/$jobId'
     | '/_authenticated/e/jobs'
     | '/_authenticated/e/onboarding'
+    | '/_authenticated/problems/$id'
     | '/_authenticated/admin/'
     | '/_authenticated/c/'
     | '/_authenticated/e/'
@@ -195,6 +219,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
@@ -252,6 +283,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEOnboardingRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/problems/$id': {
+      id: '/_authenticated/problems/$id'
+      path: '/problems/$id'
+      fullPath: '/problems/$id'
+      preLoaderRoute: typeof AuthenticatedProblemsIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/e/quote/$id': {
       id: '/_authenticated/e/quote/$id'
       path: '/e/quote/$id'
@@ -263,11 +301,13 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedCPostRoute: typeof AuthenticatedCPostRoute
   AuthenticatedCProblemsRoute: typeof AuthenticatedCProblemsRoute
   AuthenticatedChatJobIdRoute: typeof AuthenticatedChatJobIdRoute
   AuthenticatedEJobsRoute: typeof AuthenticatedEJobsRoute
   AuthenticatedEOnboardingRoute: typeof AuthenticatedEOnboardingRoute
+  AuthenticatedProblemsIdRoute: typeof AuthenticatedProblemsIdRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
   AuthenticatedCIndexRoute: typeof AuthenticatedCIndexRoute
   AuthenticatedEIndexRoute: typeof AuthenticatedEIndexRoute
@@ -275,11 +315,13 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedCPostRoute: AuthenticatedCPostRoute,
   AuthenticatedCProblemsRoute: AuthenticatedCProblemsRoute,
   AuthenticatedChatJobIdRoute: AuthenticatedChatJobIdRoute,
   AuthenticatedEJobsRoute: AuthenticatedEJobsRoute,
   AuthenticatedEOnboardingRoute: AuthenticatedEOnboardingRoute,
+  AuthenticatedProblemsIdRoute: AuthenticatedProblemsIdRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   AuthenticatedCIndexRoute: AuthenticatedCIndexRoute,
   AuthenticatedEIndexRoute: AuthenticatedEIndexRoute,

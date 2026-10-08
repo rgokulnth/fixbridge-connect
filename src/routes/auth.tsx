@@ -32,7 +32,7 @@ function AuthPage() {
   const [signup, setSignup] = useState(false);
   const [busy, setBusy] = useState(false);
 
-  const done = () => navigate({ to: "/" });
+  const done = () => navigate({ to: "/dashboard" });
 
   async function run(fn: () => Promise<void>) {
     setBusy(true);
