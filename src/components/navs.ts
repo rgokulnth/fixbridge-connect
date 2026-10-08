@@ -7,7 +7,7 @@ export const customerNav: NavItem[] = [
   { to: "/c/problems", label: "My Problems", icon: ListChecks },
 ];
 export const expertNav: NavItem[] = [
-  { to: "/e", label: "Available", icon: Search, exact: true },
+  { to: "/e", label: "Browse", icon: Search, exact: true },
   { to: "/e/jobs", label: "My Jobs", icon: Briefcase },
   { to: "/e/onboarding", label: "KYC", icon: ShieldCheck },
 ];
