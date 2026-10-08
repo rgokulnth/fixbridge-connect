@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 import { LogOut, Wrench } from "lucide-react";
+import { ThemeToggle } from "./theme-toggle";
 import { useSignOut } from "@/lib/session";
 import { cn } from "@/lib/utils";
 
@@ -35,6 +36,7 @@ export function AppShell({ title, nav, children, action }: { title: string; nav:
           </nav>
           <div className="ml-auto md:ml-0 flex items-center gap-2">
             {action}
+            <ThemeToggle />
             <button onClick={signOut} aria-label="Sign out" className="rounded-lg p-2 text-muted-foreground hover:bg-secondary">
               <LogOut className="size-4" />
             </button>
@@ -71,11 +73,12 @@ export function Pill({ children, t = "muted", className }: { children: ReactNode
   return <span className={cn("inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold", tone[t], className)}>{children}</span>;
 }
 
-export function statusTone(s: string): keyof typeof tone {
-  if (["Payment_Done", "Completed", "Released_to_expert", "Verified", "Sent", "Accepted"].includes(s)) return "good";
-  if (["Disputed", "Cancelled", "Refunded", "Failed", "Rejected"].includes(s)) return "bad";
-  if (["Job_Started", "Held_in_escrow", "Solved", "Expert_Solved", "Customer_Confirmed"].includes(s)) return "brand";
-  if (["Quote_Sent", "Payment_Held", "Submitted", "Pending", "Queued"].includes(s)) return "warn";
+export function statusTone(s?: string | null): keyof typeof tone {
+  const v = s ?? "";
+  if (["completed", "approved", "released", "accepted", "confirmed"].includes(v)) return "good";
+  if (["disputed", "rejected", "refunded", "failed"].includes(v)) return "bad";
+  if (["assigned", "on_the_way", "started", "solved", "held", "completed_payment"].includes(v)) return "brand";
+  if (["quoted", "pending", "release_pending", "sent"].includes(v)) return "warn";
   return "muted";
 }
 
