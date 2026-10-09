@@ -59,7 +59,7 @@ function Onboarding() {
             const row = { user_id: uid, skill, aadhaar_front: a, aadhaar_back: b, photo: p, verification_status: "pending" };
             const res = ex ? await supabase.from("experts").update(row).eq("id", ex.id) : await supabase.from("experts").insert(row);
             if (res.error) throw res.error;
-            await supabase.from("profiles").update({ name: name || undefined, phone: phone || undefined, role: me!.role === "admin" ? "admin" : "expert" }).eq("id", uid);
+            await supabase.from("profiles").update({ ...(name ? { name } : {}), ...(phone ? { phone } : {}), role: me!.role === "admin" ? "admin" : "expert" }).eq("id", uid);
             qc.invalidateQueries();
             toast.success("Submitted! We'll verify you soon.");
             navigate({ to: "/e" });

@@ -83,7 +83,7 @@ function Landing() {
             <div className="mt-4 space-y-2">
               {[["Ravi K.", "₹650", "4.9"], ["Suresh M.", "₹800", "4.7"]].map(([n, a, r]) => (
                 <div key={n} className="flex items-center gap-3 rounded-2xl border p-3">
-                  <span className="grid size-9 place-items-center rounded-full bg-primary font-bold text-primary-foreground">{n[0]}</span>
+                  <span className="grid size-9 place-items-center rounded-full bg-primary font-bold text-primary-foreground">{n?.[0]}</span>
                   <div className="flex-1"><p className="text-sm font-semibold">{n}</p><p className="text-xs text-muted-foreground">★ {r} · Verified</p></div>
                   <span className="font-bold text-primary">{a}</span>
                 </div>
