@@ -70,7 +70,7 @@ function ProblemDetail() {
       setBusy(false);
     }
   };
-  const must = <T,>(r: { error: { message: string } | null; data?: T }) => {
+  const must = <T,>(r: { error: { message: string } | null; data?: T | null }) => {
     if (r.error) throw new Error(r.error.message);
     return r.data as T;
   };
